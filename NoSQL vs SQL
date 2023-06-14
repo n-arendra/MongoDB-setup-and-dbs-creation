@@ -12,18 +12,21 @@ SQL databases display data in form of tables so it is known as table-based datab
 SQL Databases - MYSQL, MS SQL SERVER, POSTRESQL AND AMAZON AURORA
 NoSQL Databases - Elasticsearch, DynamoDB, mongoDB, Cassandra
 
-Mysql Installation:
+// Mysql Installation:
 sudo apt-get install mysql-server
 mysql_secure_installation
 mysql -u root -p  #Used to connect to database.
 sudo mysql #Will take u inside of the database.
 Now start creating databases, tables, insert values into it and so on…
+----------------------------------------------------------------------------------------------------
+
 MongoDB database:
 MongoDB is a document database. It stores data in a type of JSON format called BSON.
 A record in MongoDB is a document, which is a data structure composed of key value pairs similar to the structure of JSON objects.
 GUI applications of MongoDB 
 1.	MongoDB shell
 2.	MongoDB compass
+
 // Installation un ubuntu.
 Step 1: Import the public key used by the package management system
 sudo apt-get install gnupg
@@ -69,25 +72,23 @@ mongosh
 
 The log file will be stored at /var/log/mongodb/mongod.log file.
 The configuration file stored at /etc/mongod.conf
+----------------------------------------------------------------------------------
 
-
-it was all about the installation:
 Demo:
-
 # mongosh -> will open the mongoDB in shell 
 
 Database commands
-1.	show dbs  -> list all the databases
-2.	use demo  -> will create new database and switch into it.
-3.	db.dropDatabase()  -> Will delete the database
+1.	show dbs            // list all the databases
+2.	use demo            // will create new database and switch into it.
+3.	db.dropDatabase()   // Will delete the database
 
 
 Collections: It is similar to table in SQL.2 ways to create the collections
 
 1.	db.createCollection(“collection_name”)
-2.	db.collection_name.insert() -> In this method of creating collection, we need to pass the collection values also.
-3.	db.collection_name.drop() -> will delete the collection.
-4.	show collections -> Will list all the collections in the database.
+2.	db.collection_name.insert()            // In this method of creating collection, we need to pass the collection values also.
+3.	db.collection_name.drop()              // will delete the collection.
+4.	show collections                       // Will list all the collections in the database.
 
 
 Insert document into collection:
@@ -122,9 +123,10 @@ Every entry will create the ObjectID of the document.
 
 Find(): It is like ‘select * from’ in SQL
 
-1.	db.collection_name.find()  //will show all insert documents.
-2.	db.collection_name.findOne()  // will show the first inserted document.
+1.	db.collection_name.find()             //will show all insert documents.
+2.	db.collection_name.findOne()          // will show the first inserted document.
 3.	db.collection_name.find({Age: “28” }) // this will find all the entries where Age value is 28.
+
 
 Delete(): We can delete documents by using two methods
 1.	deleteOne()
@@ -135,36 +137,36 @@ db.collection_name.deleteOne({ Age: “34” }) //it will delete the first docum
 
 deleteMany() will delete all the documents that match the query provided.
 db.collection_name.deleteMany({Place: “Humnabad”}) // Will delete all the instances where Place is Humnabad.
+----------------------------------------------------------------------------------------------------------------
 
 Configuring Replica set in MongoDB:
 
-Create 3 servers and set up MongoDB in all. in this there will be 1 primary server and 2 secondary servers.
+Create 3 servers and set up MongoDB in all. In this there will be 1 primary server and 2 secondary servers.
 
 Only from primary server user can read and write the document whereas with secondary servers, user can only read the document.
 
 If primary goes down then one from secondary will become a primary.
- 
-This diagram says, from application we will interact with primary MongoDB server and Primary server internally interact with secondary servers.
 
 Demo:
 Stop MongoDB in all the servers.
 sudo systemctl stop mongod
 
-then sudo vim /etc/mongod.conf
-
+sudo vim /etc/mongod.conf     //alter the following lines in the file
 net:
    port: 27017
    bindIp: 0.0.0.0
 replication:
 	replSetName: “rs1”
+
 Do the same in all 3 servers.
+
 
 Start the mongod db
 sudo systemctl start mongod
 
 To start the replication process, choose any one server and other servers in it.
-mongosh --- takes into the mongo as a shell.
-rs.initiate()  --- Initiating replicaset
+mongosh           //takes into the mongo as a shell.
+rs.initiate()     //Initiating replicaset
 rs.add (“Private-ip of server-1”)
 rs.add(“Private-ip of server-2”)
 
@@ -185,9 +187,7 @@ Now create new collection and insert document into it. This entered document wil
 Now to enable the secondary server should read from primary, run the following command:
 Run these commands in Secondary servers.
 
-
-rs.slaveOK()  --- this method is not applicable in MongoDB version 3.2 or later
-
+rs.slaveOK()  // this method is not applicable in MongoDB version 3.2 or later
 
 
 Use the following commands if the MongoDB version is 6 or later.
